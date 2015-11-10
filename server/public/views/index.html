@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
   <title>Message Boards</title>
   <link rel="stylesheet" href="vendors/bootstrap.min.css">
   <link rel="stylesheet" href="assets/styles/style.css">
 
-  <script src="vendors/jquery.min.js"></script>
+  <script src="vendors/angular.min.js"></script>
   <script src="assets/scripts/client.js"></script>
 </head>
 <body>
@@ -16,20 +16,25 @@
     </p>
     <a href="./admin" id="adminButton">Admin</a>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid" ng-controller="MessageController">
     <div class="row">
       <div id="makeMessage" class="col-md-6">
         <h1>Post a message</h1>
         <form action="" id="submitMessageForm">
           <label for="name"></label>
-          <input type="text" name="name">
-          <textarea name="message" rows="8" cols="40" form="submitMessageForm"></textarea>
-          <input type="submit" id = "submitButton">
+          <input ng-model="message.name" type="text" name="name" >
+          <textarea name="message" rows="8" cols="40" form="submitMessageForm" ng-model="message.text"></textarea>
+
         </form>
+        <button id = "submitButton" ng-click="clickSubmit(message)">Submit</button>
+        <p>{{message.name}}</p>
 
       </div>
-      <div id="postMessages" class="col-md-6">
         <h1>Messages</h1>
+      <div id="postMessages" class="col-md-6 well" ng-repeat="quote in messages">
+
+        <p>{{quote.name}}</p>
+        <p>{{quote.message}}</p>
       </div>
     </div>
   </div>

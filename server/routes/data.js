@@ -15,6 +15,7 @@ router.route('/').post(function (req, res) {
                           console.log('error sending data', err);
                           res.send(false);
                         }
+                        console.log(result);
                         res.send(result);
                       });
                       done();
@@ -33,12 +34,15 @@ router.route('/').post(function (req, res) {
                         res.json(results);
                       });
                     });
-                  })
-                  .delete(function (req,res) {
-                    console.log(req.body.id);
+                  });
+
+
+  router.delete('/:id',function (req,res) {
+
+                    console.log(req.params.id);
                     var queryString = 'DELETE from messages where id = $1';
                     pg.connect(connectionString,function (err, client, done) {
-                        client.query(queryString, [req.body.id],function (err, result) {
+                        client.query(queryString, [req.params.id],function (err, result) {
                           if (err){
                             console.log('error on delete', err);
                             res.send(false);
